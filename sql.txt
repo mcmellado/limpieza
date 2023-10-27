@@ -1,0 +1,25 @@
+CREATE TABLE Limpiezas (
+    id SERIAL PRIMARY KEY,
+    fecha_comunicacion DATE,
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    posicion VARCHAR(255),
+    direccion VARCHAR(255),
+    coordenada VARCHAR(255),
+    foto_inicio VARCHAR(255),
+    foto_fin VARCHAR(255),
+    asunto VARCHAR(255),
+    tipo VARCHAR(20) CHECK (tipo IN ('limpieza ordinaria', 'basura', 'reciclaje')),
+    solucionado VARCHAR(2) CHECK (solucionado IN ('si', 'no')),
+    estado VARCHAR(20),
+    CONSTRAINT check_estado CHECK (estado IN ('iniciacion', 'en curso', 'finalizado') OR (estado = 'en curso' AND fecha_fin >= CURRENT_DATE))
+);
+
+
+INSERT INTO Limpiezas (fecha_comunicacion, fecha_inicio, fecha_fin, posicion, direccion, coordenada, foto_inicio, foto_fin, asunto, tipo, solucionado, estado)
+VALUES 
+('2023-10-20', '2023-10-21', '2023-10-23', 'Parque Central', 'Calle Principal 123', '40.7128,-74.0060', 'fotos/foto1.jpg', 'fotos/foto1.jpg', 'Limpieza del parque', 'limpieza ordinaria', 'si', 'finalizado'),
+('2023-10-21', '2023-10-22', '2023-10-24', 'Plaza Mayor', 'Avenida Principal 456', '51.5074,-0.1278', 'fotos/foto2.jpg', 'fotos/foto2.jpg', 'Limpieza de la plaza', 'limpieza ordinaria', 'si', 'finalizado'),
+('2023-10-22', '2023-10-23', '2023-10-25', 'Playa del Sol', 'Paseo Marítimo 789', '25.2769,55.2963', 'fotos/foto3.jpg', 'fotos/foto3.jpg', 'Limpieza de la playa', 'limpieza ordinaria', 'no', 'en curso'),
+('2023-10-23', '2023-10-24', '2023-10-26', 'Bosque Verde', 'Calle del Bosque 101', '48.8566,2.3522', 'fotos/foto4.jpg', 'fotos/foto4.jpg', 'Limpieza del bosque', 'limpieza ordinaria', 'no', 'iniciacion'),
+('2023-10-24', '2023-10-25', '2023-10-27', 'Jardín Botánico', 'Avenida de las Flores 222', '34.0522,-118.2437', 'fotos/foto5.jpg', 'fotos/foto5.jpg', 'Limpieza del jardín', 'limpieza ordinaria', 'no', 'en curso');
